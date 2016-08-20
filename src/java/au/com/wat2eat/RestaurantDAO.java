@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 public interface RestaurantDAO {
     public void create(RestaurantDTO restaurant);
-    public RestaurantDTO retreive(String id);
+    public RestaurantDTO retreive(int id);
     public void update(RestaurantDTO restaurant);
-    public void delete(String id);
+    public void delete(int id);
     public ArrayList<RestaurantDTO> retreivAll();
 }

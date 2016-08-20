@@ -15,8 +15,17 @@ public class RestaurantDTO {
     private String address;
     private String website;
     private String[] reviews;
+    private int rating;
     private double lat;
     private double lng;
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
 
     public double getLat() {
         return lat;
