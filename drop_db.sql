@@ -8,8 +8,19 @@
  * Created: 2016/08/15
  */
 
-drop table review;
-drop table wat2eataccount;
-drop table restaurant;
-drop table lookup;
+drop view jdbcrealm_user;
+drop view jdbcrealm_group;
+
+drop table w.review;
+drop table w.account;
+drop table w.restaurant;
+drop table w.lookup;
+
+
+
 -- select tablename from sys.systables;
+-- insert into review (title, comment, restaurantid, userid)
+-- values ('yoyo', 'test', '11', '22');
+-- 
+-- select * from w.ACCOUNT;
+

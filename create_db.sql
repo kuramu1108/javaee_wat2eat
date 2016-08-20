@@ -3,8 +3,8 @@
  * Created: 2016/08/15
  */
 
-create table review (
-    id varchar(255) primary key not null,
+create table w.review (
+    id integer not null primary key generated always as identity (start with 1, increment by 1),
     title varchar(255) not null,
     comment varchar(255),
     rating integer,
@@ -13,16 +13,16 @@ create table review (
     reviewedDate date
 );
 
-create table wat2eataccount (
-    id varchar(255) primary key not null,
+create table w.account (
+    id varchar(255) not null primary key,
     password varchar(255) not null,
     gender char,
     age integer,
     nationality varchar(255)
 );
 
-create table restaurant (
-    id varchar(255) primary key not null,
+create table w.restaurant (
+    id integer not null primary key generated always as identity (start with 1, increment by 1),
     restaurantname varchar(255) not null,
     address varchar(255) not null, 
     website varchar (255),
@@ -30,9 +30,17 @@ create table restaurant (
     lng float
 );
 
-create table lookup (
-    id varchar(255) primary key not null,
-    reviewid varchar(255) not null,
+create table w.lookup (
+    id integer not null primary key generated always as identity (start with 1, increment by 1),
+    reviewid integer not null,
     accountid varchar(255) not null,
-    restaurantid varchar(255) not null
+    restaurantid integer not null
 );
+
+create view jdbcrealm_user (username, password) as
+select id, password
+from w.account;
+
+create view jdbcrealm_group (username, groupname) as
+select id, 'Users'
+from w.account

@@ -5,8 +5,15 @@
  */
 package au.com.wat2eat;
 
+import au.com.wat2eat.utility.Sha;
+import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -14,7 +21,33 @@ import javax.inject.Named;
  */
 @Named
 @RequestScoped
-public class AccountController {
-    private String id;
-    private String password;
+public class AccountController implements Serializable {
+    private AccountDTO account = new AccountDTO();
+    private final String REDIRECT = "welcome";
+    public AccountDTO getAccount() {
+        return account;
+    }
+    
+    public String login() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest req = (HttpServletRequest) context.getExternalContext().getRequest();
+        try {
+            req.login(account.getId(), account.getPassword());
+        } catch (ServletException e) {
+            context.addMessage(null, new FacesMessage(e.getMessage()));
+            return null;
+        }
+        return REDIRECT;
+    }    
+    
+    public void logout() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
+        try {
+            request.logout();
+        } catch (ServletException e) {
+            // (you could also log the exception to the server log)
+            context.addMessage(null, new FacesMessage(e.getMessage()));
+        }
+    }
 }

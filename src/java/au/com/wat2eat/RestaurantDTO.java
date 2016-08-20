@@ -10,7 +10,7 @@ package au.com.wat2eat;
  * @author garysnmb
  */
 public class RestaurantDTO {
-    private String id;
+    private int id;
     private String name;
     private String address;
     private String website;
@@ -34,11 +34,11 @@ public class RestaurantDTO {
         this.lng = lng;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

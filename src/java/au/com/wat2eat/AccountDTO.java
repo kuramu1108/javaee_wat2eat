@@ -5,16 +5,18 @@
  */
 package au.com.wat2eat;
 
+import java.io.Serializable;
+
 /**
  *
  * @author garysnmb
  */
-public class AccountDTO {
+public class AccountDTO implements Serializable{
     private String id;
     private String password;
     private String[] reviews;
     private String gender;
-    private String age;
+    private int age;
     private String nationality;
 
     public String getId() {
@@ -49,11 +51,11 @@ public class AccountDTO {
         this.gender = gender;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 

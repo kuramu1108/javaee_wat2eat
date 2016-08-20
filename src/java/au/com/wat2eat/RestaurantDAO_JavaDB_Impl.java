@@ -22,46 +22,25 @@ import javax.sql.DataSource;
  * @author garysnmb
  */
 public class RestaurantDAO_JavaDB_Impl implements RestaurantDAO {
-    private ArrayList<RestaurantDTO> restaurants;
+    DataSource ds;
     
-    public RestaurantDAO_JavaDB_Impl() {
-        restaurants = new ArrayList<>();
-        try {
-            DataSource ds = (DataSource) InitialContext.doLookup("jdbc/aip");
-            String sql = "select * from restaurant";
-            try (Connection conn = ds.getConnection();
-                    Statement stat = conn.createStatement();
-                    ResultSet rs = stat.executeQuery(sql)) {
-                while (rs.next()) {
-                    // todo
-                    RestaurantDTO res = new RestaurantDTO();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(RestaurantDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (NamingException ex) {
-            Logger.getLogger(RestaurantDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public RestaurantDAO_JavaDB_Impl() throws NamingException {
+        ds = (DataSource) InitialContext.doLookup("jdbc/aip");
     }
     
     @Override
     public void create(RestaurantDTO res) {
-        try {
-            DataSource ds = (DataSource) InitialContext.doLookup("jdbc/aip");
-            String sql = "insert into restaurant (id, restaurantname, address, website, lat, lng) values(?, ?, ?, ?, ?, ?)";
-            try (Connection conn = ds.getConnection();
-                    PreparedStatement ps = conn.prepareStatement(sql);) {
-                ps.setString(1, res.getId());
-                ps.setString(2, res.getName());
-                ps.setString(3, res.getAddress());
-                ps.setString(4, res.getWebsite());
-                ps.setFloat(5, (float) res.getLat());
-                ps.setFloat(6, (float) res.getLng());
-                ps.executeQuery();
-            } catch (SQLException ex) {
-                Logger.getLogger(RestaurantDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (NamingException ex) {
+        String sql = "insert into restaurant (id, restaurantname, address, website, lat, lng) values(?, ?, ?, ?, ?, ?)";
+        try (Connection conn = ds.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);) {
+            ps.setInt(1, res.getId());
+            ps.setString(2, res.getName());
+            ps.setString(3, res.getAddress());
+            ps.setString(4, res.getWebsite());
+            ps.setFloat(5, (float) res.getLat());
+            ps.setFloat(6, (float) res.getLng());
+            ps.executeQuery();
+        } catch (SQLException ex) {
             Logger.getLogger(RestaurantDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -83,7 +62,20 @@ public class RestaurantDAO_JavaDB_Impl implements RestaurantDAO {
 
     @Override
     public ArrayList<RestaurantDTO> retreivAll() {
-        return restaurants;
+        ArrayList<RestaurantDTO> results = new ArrayList<>();
+        String sql = "select * from w.restaurant";
+        try (Connection conn = ds.getConnection();
+                Statement stat = conn.createStatement();
+                ResultSet rs = stat.executeQuery(sql)) {
+            while (rs.next()) {
+                // todo
+                RestaurantDTO res = new RestaurantDTO();
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RestaurantDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return results;
     }
     
 }
