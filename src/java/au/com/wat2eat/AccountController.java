@@ -5,12 +5,11 @@
  */
 package au.com.wat2eat;
 
-import au.com.wat2eat.utility.Sha;
 import java.io.Serializable;
-import java.security.NoSuchAlgorithmException;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +33,7 @@ public class AccountController implements Serializable {
         try {
             req.login(account.getId(), account.getPassword());
         } catch (ServletException e) {
-            context.addMessage(null, new FacesMessage(e.getMessage()));
+            context.addMessage("loginresult", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR!",e.getMessage()));
             return null;
         }
         return REDIRECT;
