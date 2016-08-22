@@ -10,7 +10,7 @@ create table w.review (
     rating integer,
     restaurantid integer not null,
     userid varchar(255) not null,
-    revieweddate date
+    reviewdate date
 );
 
 create table w.account (

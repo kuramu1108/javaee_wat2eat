@@ -18,7 +18,7 @@ public class ReviewDTO {
     private int rating;
     private int restaurantId;
     private String userId;
-    private Date reviewedDate;
+    private Date reviewDate;
     
     public ReviewDTO() {
         
@@ -72,12 +72,12 @@ public class ReviewDTO {
         this.userId = userId;
     }
 
-    public Date getReviewedDate() {
-        return reviewedDate;
+    public Date getReviewDate() {
+        return reviewDate;
     }
 
-    public void setReviewedDate(Date reviewedDate) {
-        this.reviewedDate = reviewedDate;
+    public void setReviewDate(Date reviewDate) {
+        this.reviewDate = reviewDate;
     }
     
     

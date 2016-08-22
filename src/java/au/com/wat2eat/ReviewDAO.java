@@ -16,5 +16,6 @@ public interface ReviewDAO {
     public ReviewDTO retrieve(int id);
     public void update(ReviewDTO review);
     public void delete(int id);
-    public ArrayList<ReviewDTO> retrieveAll();
+    public ArrayList<ReviewDTO> retrieveAllByRestaurant(int id);
+    public ArrayList<ReviewDTO> retreiveAllByUser(String id);
 }
