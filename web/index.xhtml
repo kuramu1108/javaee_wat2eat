@@ -27,8 +27,12 @@
                             <h:outputText value="Rating: "/>
                             <h:outputText value="#{restaurant.rating}"/>
                             
+                            <h:outputText value=""/>
+                            <h:link value="details..." outcome="detail?faces-redirect=true">
+                                <f:param name="resId" value="#{restaurant.id}"/>
+                            </h:link>
                         </h:panelGrid>
-                        <hr></hr>
+                        <p:separator/>
                 </h:panelGrid>
             </p:dataScroller>
         </h:form>

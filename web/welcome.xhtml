@@ -8,6 +8,9 @@
     <h:body>
         Hello from Facelets<br></br>
         #{request.remoteUser}
+        <h:form>
+            <h:commandButton value="Logout" action="#{accountController.logout()}"/>
+        </h:form>
     </h:body>
 </html>
 

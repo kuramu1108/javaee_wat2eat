@@ -21,14 +21,11 @@ import javax.sql.DataSource;
  * @author garysnmb
  */
 public class ReviewDAO_JavaDB_Impl implements ReviewDAO {
-    private ArrayList<ReviewDTO> reviews;
-    private String dbuser = "aip";
-    private String dbpass = "aip";
+    private DataSource ds;
     
     public ReviewDAO_JavaDB_Impl() {
-        reviews = new ArrayList<>();
         try {
-            DataSource ds = (DataSource) InitialContext.doLookup("jdbc/aip");
+            ds = (DataSource) InitialContext.doLookup("jdbc/aip");
             String sqlquery = "select * from review";
             try (Connection conn = ds.getConnection();
                     Statement stat = conn.createStatement();

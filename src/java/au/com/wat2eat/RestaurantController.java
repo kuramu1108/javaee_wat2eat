@@ -18,6 +18,7 @@ import javax.naming.NamingException;
 @Named
 @ApplicationScoped
 public class RestaurantController {
+    
     public ArrayList<RestaurantDTO> getRestaurants() {
         RestaurantDAO dao;
         ArrayList<RestaurantDTO> res;
