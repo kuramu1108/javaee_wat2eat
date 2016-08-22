@@ -66,9 +66,6 @@ public class DetailController implements Serializable{
     }
     
     public boolean currentUser(String reviewer, String current) {
-        if (reviewer.equals(current))
-            return true;
-        else
-            return false;
+        return reviewer.equals(current);
     }
 }

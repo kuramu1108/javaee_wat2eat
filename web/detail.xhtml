@@ -53,22 +53,17 @@
                         <p>
                             <div align="right">
                                 commented #{review.reviewDate}
+                                <br></br>
+                                
                             </div>
-                        </p>
-                        #{review.userId} rev<br></br> #{accountController.account.id} acc<br></br> #{request.remoteUser} rem
-                        <c:if test="#{review.userId.equals(request.remoteUser)}">
-                            
-                            <h:link value="Edit Review" outcome="editreview?faces-redirect=true">
-                                <f:param name="revId" value="#{review.id}"/>
-                            </h:link>
-                        </c:if>
-                        <c:choose>
-                            <c:when test="#{detailController.currentUser(review.userId, request.remoteUser)}">
-                                HI in choose
-                            </c:when>
-                        </c:choose>
+                        </p>                        
                     </div>
                 </h:panelGrid>
+                <div align="right">
+                    <h:link value="Edit Review" outcome="editreview?facecs-redirect=true" rendered="#{review.userId eq request.remoteUser}" style="text-align: right">
+                        <f:param name="revId" value="#{review.id}"/>
+                    </h:link> 
+                </div>            
                 <p:separator/>
             </p:dataScroller>
         </h:form>
