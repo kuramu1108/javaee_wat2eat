@@ -28,7 +28,7 @@ public class AccountDAO_JavaDB_Impl implements AccountDAO {
     
     @Override
     public void create(AccountDTO account) {
-        String sql = "insert into w.account (id, password, gender, age, nationality)"
+        String sql = "insert into w.account (id, password, gender, age, nationality) "
                 + "values (?, ?, ?, ?, ?)";
         try (Connection conn = ds.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);) {
@@ -68,7 +68,7 @@ public class AccountDAO_JavaDB_Impl implements AccountDAO {
     @Override
     public void update(AccountDTO account) {
         String sql = "update w.account "
-                + "set password=?, gender=?, age=?, nationality=?"
+                + "set password=?, gender=?, age=?, nationality=? "
                 + "where id=?";
         try (Connection conn = ds.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);) {

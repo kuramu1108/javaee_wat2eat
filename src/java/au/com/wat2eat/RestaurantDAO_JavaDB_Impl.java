@@ -30,7 +30,7 @@ public class RestaurantDAO_JavaDB_Impl implements RestaurantDAO {
     
     @Override
     public void create(RestaurantDTO res) {
-        String sql = "insert into w.restaurant (restaurantname, address, rating, website, lat, lng)"
+        String sql = "insert into w.restaurant (restaurantname, address, rating, website, lat, lng) "
                 + "values(?, ?, ?, ?, ?, ?)";
         try (Connection conn = ds.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);) {
@@ -73,8 +73,8 @@ public class RestaurantDAO_JavaDB_Impl implements RestaurantDAO {
 
     @Override
     public void update(RestaurantDTO res) {
-        String sql = "update w.restaurant"
-                + "set restaurantname=?, address=?, rating=?, website=?, lat=?, lng=?"
+        String sql = "update w.restaurant "
+                + "set restaurantname=?, address=?, rating=?, website=?, lat=?, lng=? "
                 + "where id=?";
         try (Connection conn = ds.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);){

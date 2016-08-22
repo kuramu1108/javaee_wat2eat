@@ -32,7 +32,49 @@
             <h:outputText value="#{detailController.restaurant.rating}"/>
         </h:panelGrid>
         <p:gmap center="-33.883576,151.200505" zoom="16" type="ROADMAP" style="width:80%;height:400px;" model="#{detailController.mapModel}" />
-        <h:dataTable
+        
+        <h:form style="width: 70%; ">
+            <p:dataScroller value="#{detailController.restaurantsReviews}" var="review" chunkSize="10">
+                <f:facet name="header">
+                    Scroll Down to Load More Reviews
+                </f:facet>
+                <f:facet name="loader">
+                    <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
+                </f:facet>
+                <h:panelGrid columns="1" width="100%">
+                    <div style="margin: 15px;">
+                        <p>
+                            <strong>#{review.title}</strong>
+                            <div align="right">by #{review.userId}</div>
+                        </p>
+                        <p>
+                            #{review.comment}
+                        </p>
+                        <p>
+                            <div align="right">
+                                commented #{review.reviewDate}
+                            </div>
+                        </p>
+                        #{review.userId} rev<br></br> #{accountController.account.id} acc<br></br> #{request.remoteUser} rem
+                        <c:if test="#{review.userId.equals(request.remoteUser)}">
+                            
+                            <h:link value="Edit Review" outcome="editreview?faces-redirect=true">
+                                <f:param name="revId" value="#{review.id}"/>
+                            </h:link>
+                        </c:if>
+                        <c:choose>
+                            <c:when test="#{detailController.currentUser(review.userId, request.remoteUser)}">
+                                HI in choose
+                            </c:when>
+                        </c:choose>
+                    </div>
+                </h:panelGrid>
+                <p:separator/>
+            </p:dataScroller>
+        </h:form>
+        
+        
+        
     </h:body>
 </html>
 

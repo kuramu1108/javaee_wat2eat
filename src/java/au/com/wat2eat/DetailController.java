@@ -25,7 +25,7 @@ import org.primefaces.model.map.Marker;
 @RequestScoped
 public class DetailController implements Serializable{
     
-    private RestaurantDTO restaurant;
+    private RestaurantDTO restaurant;    
     private MapModel mapModel;
     
     public void loadRestaurant(int resId) {
@@ -53,9 +53,22 @@ public class DetailController implements Serializable{
         return !restaurant.getWebsite().equals("undefined");
     }
     
-    public ArrayList<ReviewDTO> getAllReviews(int resId) {
-        ArrayList<ReviewDTO> results = new ArrayList<>();
-        
+    public ArrayList<ReviewDTO> getRestaurantsReviews() {
+        ArrayList<ReviewDTO> results;
+        try {
+            ReviewDAO dao = new ReviewDAO_JavaDB_Impl();
+            results = dao.retrieveAllByRestaurant(restaurant.getId());
+        } catch (NamingException ex) {
+            Logger.getLogger(DetailController.class.getName()).log(Level.SEVERE, null, ex);
+            results = new ArrayList<>();
+        }
         return results;
+    }
+    
+    public boolean currentUser(String reviewer, String current) {
+        if (reviewer.equals(current))
+            return true;
+        else
+            return false;
     }
 }

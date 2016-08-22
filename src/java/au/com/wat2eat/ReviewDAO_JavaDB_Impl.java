@@ -31,7 +31,7 @@ public class ReviewDAO_JavaDB_Impl implements ReviewDAO {
     
     @Override
     public void create(ReviewDTO review) {
-        String sql = "insert into w.review (title, comment, rating, restaurantid, userid, reviewdate)"
+        String sql = "insert into w.review (title, comment, rating, restaurantid, userid, reviewdate) "
                 + "values(?, ?, ?, ?, ?, ?)";
         try (Connection conn = ds.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);) {
@@ -74,8 +74,8 @@ public class ReviewDAO_JavaDB_Impl implements ReviewDAO {
 
     @Override
     public void update(ReviewDTO review) {
-        String sql = "update w.review"
-                + "set title=?, comment=?, rating=?, reviewdate=?"
+        String sql = "update w.review "
+                + "set title=?, comment=?, rating=?, reviewdate=? "
                 + "where id=?";
         try (Connection conn = ds.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);) {
@@ -93,7 +93,7 @@ public class ReviewDAO_JavaDB_Impl implements ReviewDAO {
 
     @Override
     public void delete(int id) {
-        String sql = "delete from w.review"
+        String sql = "delete from w.review "
                 + "where id=?";
         try (Connection conn = ds.getConnection();
                 PreparedStatement ps =  conn.prepareStatement(sql);) {
@@ -107,7 +107,7 @@ public class ReviewDAO_JavaDB_Impl implements ReviewDAO {
     @Override
     public ArrayList<ReviewDTO> retrieveAllByRestaurant(int id) {
         ArrayList<ReviewDTO> result = new ArrayList<>();
-        String sql = "select * from w.review"
+        String sql = "select * from w.review "
                 + "where restaurantid=?";
         try (Connection conn = ds.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);) {
@@ -133,7 +133,7 @@ public class ReviewDAO_JavaDB_Impl implements ReviewDAO {
     @Override
     public ArrayList<ReviewDTO> retreiveAllByUser (String id) {
         ArrayList<ReviewDTO> result = new ArrayList<>();
-        String sql = "select * from w.review"
+        String sql = "select * from w.review "
                 + "where userid=?";
         try (Connection conn = ds.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);) {

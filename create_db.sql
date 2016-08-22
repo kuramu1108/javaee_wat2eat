@@ -6,7 +6,7 @@
 create table w.review (
     id integer not null primary key generated always as identity (start with 1, increment by 1),
     title varchar(255) not null,
-    comment varchar(255),
+    comment long varchar,
     rating integer,
     restaurantid integer not null,
     userid varchar(255) not null,
