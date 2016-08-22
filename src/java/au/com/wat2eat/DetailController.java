@@ -12,6 +12,10 @@ import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.naming.NamingException;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 
 /**
  *
@@ -19,21 +23,34 @@ import javax.naming.NamingException;
  */
 @Named
 @RequestScoped
-public class ReviewController implements Serializable{
+public class DetailController implements Serializable{
     
     private RestaurantDTO restaurant;
+    private MapModel mapModel;
     
     public void loadRestaurant(int resId) {
         try {
             RestaurantDAO resDao = new RestaurantDAO_JavaDB_Impl();
             restaurant = resDao.retreive(resId);
+            mapModel = new DefaultMapModel();
+            
+            LatLng coord = new LatLng(restaurant.getLat(), restaurant.getLng());
+            mapModel.addOverlay(new Marker(coord, restaurant.getName()));
         } catch (NamingException ex) {
-            Logger.getLogger(ReviewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetailController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     public RestaurantDTO getRestaurant() {
         return restaurant;
+    }
+    
+    public MapModel getMapModel() {
+        return mapModel;
+    }
+    
+    public boolean hasWebsite() {
+        return !restaurant.getWebsite().equals("undefined");
     }
     
     public ArrayList<ReviewDTO> getAllReviews(int resId) {

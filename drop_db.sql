@@ -14,7 +14,7 @@ drop view jdbcrealm_group;
 drop table w.review;
 drop table w.account;
 drop table w.restaurant;
-drop table w.lookup;
+-- drop table w.lookup;
 
 
 

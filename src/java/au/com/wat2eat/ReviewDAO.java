@@ -5,13 +5,16 @@
  */
 package au.com.wat2eat;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author garysnmb
  */
 public interface ReviewDAO {
-    public void createReview();
-    public ReviewDAO retrieveReview(String id);
-    public void updateReview(String id);
-    public void deleteReview(String id);
+    public void create(ReviewDTO review);
+    public ReviewDTO retrieve(int id);
+    public void update(ReviewDTO review);
+    public void delete(int id);
+    public ArrayList<ReviewDTO> retrieveAll();
 }
