@@ -1,12 +1,36 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Wat2Eat</title>
     </h:head>
+    <f:metadata>
+        <f:viewAction action="#{accountController.loadReview(param.revId)}"/>
+    </f:metadata>
     <h:body>
-        Hello from Facelets
+        <h1>Edit Review</h1>
+        <h:form>
+            <h:panelGrid columns="2">
+                <p:outputLabel value="Title: "/>
+                <p:inputText value="#{accountController.review.title}"/>
+                
+                <p:outputLabel value="Comment: "/>
+                <p:inputTextarea value="#{accountController.review.comment}"/>
+                
+                <p:outputLabel value="Rating: "/>
+                <p:outputLabel value="placeholder"/>
+                
+                <p:outputLabel value="Reviewed Date: "/>
+                <p:inputText readonly="true" value="#{accountController.review.reviewDate}"/>
+                
+                <p:commandButton value="Delete" action="#{accountController.deleteReview()}"/>
+                <p:commandButton value="Save" action="#{accountController.updateReview()}"/>
+            </h:panelGrid>
+        </h:form>
+        <h:link value="Back to user page..." outcome="userpage"/>
     </h:body>
 </html>
 

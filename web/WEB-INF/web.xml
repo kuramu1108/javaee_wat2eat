@@ -21,7 +21,6 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
-    
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>aipRealm</realm-name>
@@ -30,21 +29,20 @@
             <form-error-page>/faces/login.xhtml</form-error-page>
         </form-login-config>
     </login-config>
-
     <security-constraint>
         <display-name>Logged in pages</display-name>
         <web-resource-collection>
             <web-resource-name>secure</web-resource-name>
-            <url-pattern>/faces/welcome.xhtml</url-pattern>
+            <description/>
+            <url-pattern>/faces/userpage.xhtml</url-pattern>
             <url-pattern>/faces/secret/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>Users</role-name>
         </auth-constraint>
     </security-constraint>
-
-<security-role>
-    <description>Logged in Users</description>
-    <role-name>Users</role-name>
-</security-role>
+    <security-role>
+        <description>Logged in Users</description>
+        <role-name>Users</role-name>
+    </security-role>
 </web-app>

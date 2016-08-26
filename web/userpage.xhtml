@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Wat2Eat</title>
+    </h:head>
+    <h:body>
+        <h1>Hello #{request.remoteUser}</h1>
+        <h:form>
+            <h:commandButton value="Logout" action="#{accountController.logout()}"/>
+        </h:form>
+        <h:link value="Restaurant List" outcome="index"/>
+        <p:separator/>
+        <h3>Your Reviews</h3>
+        <h:form style="width: 70%; ">
+            <p:dataScroller value="#{accountController.allReviews}" var="review" chunkSize="10">
+                <f:facet name="header">
+                    Scroll Down to Load More Reviews
+                </f:facet>
+                <f:facet name="loader">
+                    <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
+                </f:facet>
+                <h:panelGrid columns="1" width="100%">
+                    <div style="margin: 15px;">
+                        <p>
+                            <strong>#{review.title}</strong>
+                            <div align="right">by #{review.userId}</div>
+                        </p>
+                        <p>
+                            #{review.comment}
+                        </p>
+                        <p>
+                            <div align="right">
+                                commented #{review.reviewDate}
+                                <br></br>
+                                
+                            </div>
+                        </p>                        
+                    </div>
+                </h:panelGrid>
+                <div align="right">
+                    <h:link value="Edit Review" outcome="editreview?facecs-redirect=true" rendered="#{review.userId eq request.remoteUser}" style="text-align: right">
+                        <f:param name="revId" value="#{review.id}"/>
+                    </h:link> 
+                </div>            
+                <p:separator/>
+            </p:dataScroller>
+        </h:form>
+    </h:body>
+</html>
+

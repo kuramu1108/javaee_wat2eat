@@ -32,7 +32,29 @@
             <h:outputText value="#{detailController.restaurant.rating}"/>
         </h:panelGrid>
         <p:gmap center="-33.883576,151.200505" zoom="16" type="ROADMAP" style="width:80%;height:400px;" model="#{detailController.mapModel}" />
-        
+        <p>
+            <c:if test="#{request.remoteUser != null}">
+                <h3>Make a comment</h3>
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Title: "/>
+                        <p:inputText value="#{accountController.review.title}"/>
+
+                        <p:outputLabel value="Comment: "/>
+                        <p:inputTextarea value="#{accountController.review.comment}"/>
+
+                        <p:outputLabel value="Rating: "/>
+                        <p:outputLabel value="placeholder"/>
+
+                        <p:outputLabel value="Reviewed Date: "/>
+                        <p:inputText readonly="true" value="#{accountController.review.reviewDate}"/>
+
+                        <p:commandButton value="Submit" action="#{accountController}"/>
+                    </h:panelGrid>
+                </h:form>
+            </c:if>
+        </p>
+        <p:separator/>
         <h:form style="width: 70%; ">
             <p:dataScroller value="#{detailController.restaurantsReviews}" var="review" chunkSize="10">
                 <f:facet name="header">
@@ -67,8 +89,6 @@
                 <p:separator/>
             </p:dataScroller>
         </h:form>
-        
-        
         
     </h:body>
 </html>
