@@ -59,6 +59,7 @@ public class AccountDAO_JavaDB_Impl implements AccountDAO {
                 result.setAge(rs.getInt("age"));
                 result.setNationality(rs.getString("nationality"));
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -108,6 +109,7 @@ public class AccountDAO_JavaDB_Impl implements AccountDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next())
                 exist = true;
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
         }

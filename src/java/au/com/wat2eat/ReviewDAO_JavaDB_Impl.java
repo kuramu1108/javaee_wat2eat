@@ -6,11 +6,9 @@
 package au.com.wat2eat;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -67,6 +65,7 @@ public class ReviewDAO_JavaDB_Impl implements ReviewDAO {
                 rev.setUserId(rs.getString("userid"));
                 rev.setReviewDate(rs.getDate("reviewdate"));
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(ReviewDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -126,6 +125,7 @@ public class ReviewDAO_JavaDB_Impl implements ReviewDAO {
                 rev.setReviewDate(rs.getDate("reviewdate"));
                 result.add(rev);
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(ReviewDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -152,6 +152,7 @@ public class ReviewDAO_JavaDB_Impl implements ReviewDAO {
                 rev.setReviewDate(rs.getDate("reviewdate"));
                 result.add(rev);
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(ReviewDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -175,6 +176,7 @@ public class ReviewDAO_JavaDB_Impl implements ReviewDAO {
             }
             if (count != 0)
                 ave = total/count;
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(ReviewDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
         }

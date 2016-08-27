@@ -15,6 +15,7 @@
     </h:head>
     <h:body>
         <h1>#{detailController.restaurant.name}</h1>
+        <h:link value="back to list" outcome="index?faces-redirect=true"/>
         <h:panelGrid columns="2">
             <h:outputText value="Address:"/>
             <h:outputText value="#{detailController.restaurant.address}"/>
@@ -64,7 +65,7 @@
                 <h:panelGrid columns="1" width="100%">
                     <div style="margin: 15px;">
                         <p>
-                            <strong>#{review.title}</strong>
+                            <strong>#{review.title}</strong> <p:rating value="#{review.rating}" readonly="true" />
                             <div align="right">by #{review.userId}</div>
                         </p>
                         <p>

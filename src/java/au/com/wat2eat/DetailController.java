@@ -34,8 +34,10 @@ public class DetailController implements Serializable{
         try {
             RestaurantDAO resDao = new RestaurantDAO_JavaDB_Impl();
             restaurant = resDao.retreive(resId);
-            mapModel = new DefaultMapModel();
+            restaurant.setRating(new ReviewDAO_JavaDB_Impl().getAverageRating(restaurant.getId()));
             
+            mapModel = new DefaultMapModel();
+
             LatLng coord = new LatLng(restaurant.getLat(), restaurant.getLng());
             mapModel.addOverlay(new Marker(coord, restaurant.getName()));
         } catch (NamingException ex) {

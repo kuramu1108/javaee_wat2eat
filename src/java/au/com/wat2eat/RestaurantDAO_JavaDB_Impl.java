@@ -63,6 +63,7 @@ public class RestaurantDAO_JavaDB_Impl implements RestaurantDAO {
                 res.setLat(rs.getFloat("lat"));
                 res.setLng(rs.getFloat("lng"));
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(RestaurantDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -119,6 +120,7 @@ public class RestaurantDAO_JavaDB_Impl implements RestaurantDAO {
                 res.setLng(rs.getFloat("lng"));
                 results.add(res);
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(RestaurantDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
         }

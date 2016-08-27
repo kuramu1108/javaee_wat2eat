@@ -29,6 +29,7 @@ public class AccountController implements Serializable {
     private Integer rating;
     private final String LOGOUT = "login?faces-redirect=true";
     private final String USERPAGE = "userpage?faces-redirect=true";
+    private final String REST = "detail?faces-redirect=true";
     
     public AccountDTO getAccount() {
         return account;
@@ -52,11 +53,10 @@ public class AccountController implements Serializable {
     }
     
     public String updateReview() throws NamingException {
-        // need to add required fields
         editReview.setReviewDate(java.util.Calendar.getInstance().getTime());
         editReview.setRating(rating);
         new ReviewDAO_JavaDB_Impl().update(editReview);
-        return USERPAGE;
+        return REST + "&resId=" + editReview.getRestaurantId();
     }
     
     public String deleteReview() throws NamingException {
