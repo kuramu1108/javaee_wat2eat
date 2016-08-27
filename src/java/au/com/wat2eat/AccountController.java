@@ -25,7 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 @SessionScoped
 public class AccountController implements Serializable {
     private AccountDTO account = new AccountDTO();
-    private ReviewDTO editReview = new ReviewDTO();
+    private ReviewDTO editReview;
+    private Integer rating;
     private final String LOGOUT = "login?faces-redirect=true";
     private final String USERPAGE = "userpage?faces-redirect=true";
     
@@ -39,22 +40,27 @@ public class AccountController implements Serializable {
     
     public void loadReview(int id) throws NamingException {
         editReview = new ReviewDAO_JavaDB_Impl().retrieve(id);
+        rating = editReview.getRating();
+    }
+    
+    public Integer getRating() {
+        return rating;
+    }
+    
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
     
     public String updateReview() throws NamingException {
         // need to add required fields
+        editReview.setReviewDate(java.util.Calendar.getInstance().getTime());
+        editReview.setRating(rating);
         new ReviewDAO_JavaDB_Impl().update(editReview);
         return USERPAGE;
     }
     
     public String deleteReview() throws NamingException {
         new ReviewDAO_JavaDB_Impl().delete(editReview.getId());
-        return USERPAGE;
-    }
-    
-    public String submitReview() throws NamingException {
-        // need to add required fields
-        new ReviewDAO_JavaDB_Impl().create(editReview);
         return USERPAGE;
     }
     

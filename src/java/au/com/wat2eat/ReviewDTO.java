@@ -6,6 +6,10 @@
 package au.com.wat2eat;
 
 import java.util.Date;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -13,8 +17,12 @@ import java.util.Date;
  */
 public class ReviewDTO {
     private int id;
+    @NotNull
+    @Size(min=1, max=255, message ="Title must not be empty")
     private String title;
     private String comment;
+    @Min(0)
+    @Max(5)
     private int rating;
     private int restaurantId;
     private String userId;

@@ -504,11 +504,3 @@ values ('Dainty Dumpling House','Market City Shopping Centre, 01b/9-13 Hay Stree
 
 insert into w.restaurant (restaurantname, address, website, lat, lng)
 values ('Pho Gia Hoi','711 George Street, Haymarket','undefined',-33.8806938, 151.204517);
-
-
-
-
--- initial rating
-update w.RESTAURANT
-set rating=0
-where rating is null;

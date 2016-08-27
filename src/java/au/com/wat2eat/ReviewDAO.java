@@ -18,4 +18,5 @@ public interface ReviewDAO {
     public void delete(int id);
     public ArrayList<ReviewDTO> retrieveAllByRestaurant(int id);
     public ArrayList<ReviewDTO> retreiveAllByUser(String id);
+    public int getAverageRating(int resId);
 }

@@ -21,10 +21,7 @@
                 <p:inputTextarea value="#{accountController.review.comment}"/>
                 
                 <p:outputLabel value="Rating: "/>
-                <p:outputLabel value="placeholder"/>
-                
-                <p:outputLabel value="Reviewed Date: "/>
-                <p:inputText readonly="true" value="#{accountController.review.reviewDate}"/>
+                <p:rating value="#{accountController.rating}"/>
                 
                 <p:commandButton value="Delete" action="#{accountController.deleteReview()}"/>
                 <p:commandButton value="Save" action="#{accountController.updateReview()}"/>

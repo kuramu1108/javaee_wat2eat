@@ -14,7 +14,6 @@ public class RestaurantDTO {
     private String name;
     private String address;
     private String website;
-    private String[] reviews;
     private int rating;
     private double lat;
     private double lng;
@@ -74,14 +73,4 @@ public class RestaurantDTO {
     public void setWebsite(String website) {
         this.website = website;
     }
-
-    public String[] getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(String[] reviews) {
-        this.reviews = reviews;
-    }
-    
-    
 }

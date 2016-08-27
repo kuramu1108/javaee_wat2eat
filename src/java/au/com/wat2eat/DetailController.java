@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.naming.NamingException;
 import org.primefaces.model.map.DefaultMapModel;
@@ -22,10 +22,12 @@ import org.primefaces.model.map.Marker;
  * @author mac
  */
 @Named
-@RequestScoped
+@SessionScoped
 public class DetailController implements Serializable{
-    
-    private RestaurantDTO restaurant;    
+    private ReviewDTO newReview;
+    private Integer rating;
+    private RestaurantDTO restaurant;
+    private AccountDTO current;
     private MapModel mapModel;
     
     public void loadRestaurant(int resId) {
@@ -41,8 +43,34 @@ public class DetailController implements Serializable{
         }
     }
     
+    public void loadAccount(String id) {
+        try {
+            AccountDAO accDao = new AccountDAO_JavaDB_Impl();
+            if (id != null) {
+                current = accDao.retreive(id);
+                newReview = new ReviewDTO();
+                rating = 0;
+            }
+        } catch (NamingException ex) {
+            Logger.getLogger(DetailController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
     public RestaurantDTO getRestaurant() {
         return restaurant;
+    }
+    
+    public ReviewDTO getReview() {
+        return newReview;
+    }
+    
+    public Integer getRating() {
+        return rating;
+    }
+    
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
     
     public MapModel getMapModel() {
@@ -65,7 +93,14 @@ public class DetailController implements Serializable{
         return results;
     }
     
-    public boolean currentUser(String reviewer, String current) {
-        return reviewer.equals(current);
+    public String submitReview() throws NamingException {
+        newReview.setUserId(current.getId());
+        newReview.setRating(rating);
+        newReview.setRestaurantId(restaurant.getId());
+
+        newReview.setReviewDate(java.util.Calendar.getInstance().getTime());
+        
+        new ReviewDAO_JavaDB_Impl().create(newReview);
+        return "userpage?faces-redirect=true";
     }
 }

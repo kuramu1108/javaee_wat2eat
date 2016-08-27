@@ -25,7 +25,6 @@ create table w.restaurant (
     id integer not null primary key generated always as identity (start with 1, increment by 1),
     restaurantname varchar(255) not null,
     address varchar(255) not null, 
-    rating integer,
     website varchar (255),
     lat float,
     lng float

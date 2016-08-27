@@ -40,7 +40,8 @@ public class ReviewDAO_JavaDB_Impl implements ReviewDAO {
             ps.setInt(3, review.getRating());
             ps.setInt(4, review.getRestaurantId());
             ps.setString(5, review.getUserId());
-            ps.setDate(6, (Date) review.getReviewDate());
+            java.sql.Date sqlDate = new java.sql.Date(review.getReviewDate().getTime());
+            ps.setDate(6, sqlDate);
             ps.execute();
             
         } catch (SQLException ex) {
@@ -82,7 +83,8 @@ public class ReviewDAO_JavaDB_Impl implements ReviewDAO {
             ps.setString(1, review.getTitle());
             ps.setString(2, review.getComment());
             ps.setInt(3, review.getRating());
-            ps.setDate(4, (Date) review.getReviewDate());
+            java.sql.Date sqlDate = new java.sql.Date(review.getReviewDate().getTime());
+            ps.setDate(4, sqlDate);
             ps.setInt(5, review.getId());
             
             ps.execute();
@@ -154,6 +156,29 @@ public class ReviewDAO_JavaDB_Impl implements ReviewDAO {
             Logger.getLogger(ReviewDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+
+    @Override
+    public int getAverageRating(int resId) {
+        int total = 0;
+        int count = 0;
+        int ave = 0;
+        String sql = "select rating from w.review "
+                + "where restaurantid=?";
+        try(Connection conn = ds.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);) {
+            ps.setInt(1, resId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                total += rs.getInt("rating");
+                count++;
+            }
+            if (count != 0)
+                ave = total/count;
+        } catch (SQLException ex) {
+            Logger.getLogger(ReviewDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ave;
     }
     
 }

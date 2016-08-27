@@ -30,16 +30,15 @@ public class RestaurantDAO_JavaDB_Impl implements RestaurantDAO {
     
     @Override
     public void create(RestaurantDTO res) {
-        String sql = "insert into w.restaurant (restaurantname, address, rating, website, lat, lng) "
-                + "values(?, ?, ?, ?, ?, ?)";
+        String sql = "insert into w.restaurant (restaurantname, address, website, lat, lng) "
+                + "values(?, ?, ?, ?, ?)";
         try (Connection conn = ds.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);) {
             ps.setString(1, res.getName());
             ps.setString(2, res.getAddress());
-            ps.setInt(3, res.getRating());
-            ps.setString(4, res.getWebsite());
-            ps.setFloat(5, (float) res.getLat());
-            ps.setFloat(6, (float) res.getLng());
+            ps.setString(3, res.getWebsite());
+            ps.setFloat(4, (float) res.getLat());
+            ps.setFloat(5, (float) res.getLng());
             ps.execute();
             
         } catch (SQLException ex) {
@@ -60,7 +59,6 @@ public class RestaurantDAO_JavaDB_Impl implements RestaurantDAO {
                 res.setId(id);
                 res.setName(rs.getString("restaurantname"));
                 res.setAddress(rs.getString("address"));
-                res.setRating(rs.getInt("rating"));
                 res.setWebsite(rs.getString("website"));
                 res.setLat(rs.getFloat("lat"));
                 res.setLng(rs.getFloat("lng"));
@@ -74,17 +72,16 @@ public class RestaurantDAO_JavaDB_Impl implements RestaurantDAO {
     @Override
     public void update(RestaurantDTO res) {
         String sql = "update w.restaurant "
-                + "set restaurantname=?, address=?, rating=?, website=?, lat=?, lng=? "
+                + "set restaurantname=?, address=?, website=?, lat=?, lng=? "
                 + "where id=?";
         try (Connection conn = ds.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);){
             ps.setString(1, res.getName());
             ps.setString(2, res.getAddress());
-            ps.setInt(3, res.getRating());
-            ps.setString(4, res.getWebsite());
-            ps.setFloat(5, (float) res.getLat());
-            ps.setFloat(6, (float) res.getLng());
-            ps.setInt(7, res.getId());
+            ps.setString(3, res.getWebsite());
+            ps.setFloat(4, (float) res.getLat());
+            ps.setFloat(5, (float) res.getLng());
+            ps.setInt(6, res.getId());
             ps.execute();
             
         } catch (SQLException ex) {
@@ -117,7 +114,6 @@ public class RestaurantDAO_JavaDB_Impl implements RestaurantDAO {
                 res.setId(rs.getInt("id"));
                 res.setName(rs.getString("restaurantname"));
                 res.setAddress(rs.getString("address"));
-                res.setRating(rs.getInt("rating"));
                 res.setWebsite(rs.getString("website"));
                 res.setLat(rs.getFloat("lat"));
                 res.setLng(rs.getFloat("lng"));

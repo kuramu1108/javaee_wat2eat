@@ -7,6 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
     <f:metadata>
         <f:viewAction action="#{detailController.loadRestaurant(param.resId)}"/>
+        <f:viewAction action="#{detailController.loadAccount(request.remoteUser)}"/>
     </f:metadata>
     <h:head>
         <title>Wat2Eat</title>
@@ -18,41 +19,38 @@
             <h:outputText value="Address:"/>
             <h:outputText value="#{detailController.restaurant.address}"/>
             
-            <h:outputText value="Website:"/>
-            <c:choose>
-                <c:when test="#{detailController.hasWebsite()}">
-                    <a href="#{detailController.restaurant.website}" target="_blank">Restaurant HP</a>
-                </c:when>
-                <c:otherwise>
-                    <h:outputText value="No Website Provided"/>
-                </c:otherwise>
-            </c:choose>
+            <h:outputText value="Website:" rendered="#{detailController.restaurant.website != 'undefined'}"/>
+            <h:outputLink value="#{detailController.restaurant.website}" rendered="#{detailController.restaurant.website != 'undefined'}" target="_blank">Restaurant HP</h:outputLink>
+            
             
             <h:outputText value="Rating:"/>
             <h:outputText value="#{detailController.restaurant.rating}"/>
         </h:panelGrid>
         <p:gmap center="-33.883576,151.200505" zoom="16" type="ROADMAP" style="width:80%;height:400px;" model="#{detailController.mapModel}" />
         <p>
-            <c:if test="#{request.remoteUser != null}">
-                <h3>Make a comment</h3>
-                <h:form>
-                    <h:panelGrid columns="2">
-                        <p:outputLabel value="Title: "/>
-                        <p:inputText value="#{accountController.review.title}"/>
+            <c:choose>
+                <c:when test="#{request.remoteUser != null}">
+                    <h3>Make a comment</h3>
+                    <h:form>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Title: *"/>
+                            <p:inputText value="#{detailController.review.title}"/>
 
-                        <p:outputLabel value="Comment: "/>
-                        <p:inputTextarea value="#{accountController.review.comment}"/>
+                            <p:outputLabel value="Comment: "/>
+                            <p:inputTextarea value="#{detailController.review.comment}"/>
 
-                        <p:outputLabel value="Rating: "/>
-                        <p:outputLabel value="placeholder"/>
+                            <p:outputLabel value="Rating: "/>
+                            <p:rating value="#{detailController.rating}"/>
 
-                        <p:outputLabel value="Reviewed Date: "/>
-                        <p:inputText readonly="true" value="#{accountController.review.reviewDate}"/>
-
-                        <p:commandButton value="Submit" action="#{accountController}"/>
-                    </h:panelGrid>
-                </h:form>
-            </c:if>
+                            <p:commandButton value="Submit" action="#{detailController.submitReview()}"/>
+                        </h:panelGrid>
+                    </h:form>
+                    <p:messages autoUpdate="true" showDetail="true" closable="true"/>
+                </c:when>
+                <c:otherwise>
+                    <h:link value="Login to Comment" outcome="login?faces-redirect=true"/>
+                </c:otherwise>
+            </c:choose>
         </p>
         <p:separator/>
         <h:form style="width: 70%; ">
