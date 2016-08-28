@@ -100,7 +100,7 @@ public class AccountController implements Serializable {
         try {
             req.login(account.getId(), account.getPassword());
         } catch (ServletException e) {
-            context.addMessage("loginresult", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR!",e.getMessage()));
+            context.addMessage("loginresult", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ID and Password mismatch",e.getMessage()));
             return null;
         }
         return USERPAGE;
