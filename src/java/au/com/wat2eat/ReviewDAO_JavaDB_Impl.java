@@ -54,17 +54,17 @@ public class ReviewDAO_JavaDB_Impl implements ReviewDAO {
                 PreparedStatement ps = conn.prepareStatement(sql);) {
             ps.setInt(1, id);
             
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                rev.setId(rs.getInt("id"));
-                rev.setTitle(rs.getString("title"));
-                rev.setComment(rs.getString("comment"));
-                rev.setRating(rs.getInt("rating"));
-                rev.setRestaurantId(rs.getInt("restaurantid"));
-                rev.setUserId(rs.getString("userid"));
-                rev.setReviewDate(rs.getDate("reviewdate"));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    rev.setId(rs.getInt("id"));
+                    rev.setTitle(rs.getString("title"));
+                    rev.setComment(rs.getString("comment"));
+                    rev.setRating(rs.getInt("rating"));
+                    rev.setRestaurantId(rs.getInt("restaurantid"));
+                    rev.setUserId(rs.getString("userid"));
+                    rev.setReviewDate(rs.getDate("reviewdate"));
+                }
             }
-            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(ReviewDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -112,19 +112,19 @@ public class ReviewDAO_JavaDB_Impl implements ReviewDAO {
         try (Connection conn = ds.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);) {
             ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                ReviewDTO rev = new ReviewDTO();
-                rev.setId(rs.getInt("id"));
-                rev.setTitle(rs.getString("title"));
-                rev.setComment(rs.getString("comment"));
-                rev.setRating(rs.getInt("rating"));
-                rev.setRestaurantId(rs.getInt("restaurantid"));
-                rev.setUserId(rs.getString("userid"));
-                rev.setReviewDate(rs.getDate("reviewdate"));
-                result.add(rev);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    ReviewDTO rev = new ReviewDTO();
+                    rev.setId(rs.getInt("id"));
+                    rev.setTitle(rs.getString("title"));
+                    rev.setComment(rs.getString("comment"));
+                    rev.setRating(rs.getInt("rating"));
+                    rev.setRestaurantId(rs.getInt("restaurantid"));
+                    rev.setUserId(rs.getString("userid"));
+                    rev.setReviewDate(rs.getDate("reviewdate"));
+                    result.add(rev);
+                }
             }
-            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(ReviewDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -139,19 +139,19 @@ public class ReviewDAO_JavaDB_Impl implements ReviewDAO {
         try (Connection conn = ds.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);) {
             ps.setString(1, id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                ReviewDTO rev = new ReviewDTO();
-                rev.setId(rs.getInt("id"));
-                rev.setTitle(rs.getString("title"));
-                rev.setComment(rs.getString("comment"));
-                rev.setRating(rs.getInt("rating"));
-                rev.setRestaurantId(rs.getInt("restaurantid"));
-                rev.setUserId(rs.getString("userid"));
-                rev.setReviewDate(rs.getDate("reviewdate"));
-                result.add(rev);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    ReviewDTO rev = new ReviewDTO();
+                    rev.setId(rs.getInt("id"));
+                    rev.setTitle(rs.getString("title"));
+                    rev.setComment(rs.getString("comment"));
+                    rev.setRating(rs.getInt("rating"));
+                    rev.setRestaurantId(rs.getInt("restaurantid"));
+                    rev.setUserId(rs.getString("userid"));
+                    rev.setReviewDate(rs.getDate("reviewdate"));
+                    result.add(rev);
+                }
             }
-            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(ReviewDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -168,14 +168,14 @@ public class ReviewDAO_JavaDB_Impl implements ReviewDAO {
         try(Connection conn = ds.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);) {
             ps.setInt(1, resId);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                total += rs.getInt("rating");
-                count++;
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    total += rs.getInt("rating");
+                    count++;
+                }
+                if (count != 0)
+                    ave = total/count;
             }
-            if (count != 0)
-                ave = total/count;
-            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(ReviewDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
         }
