@@ -53,16 +53,16 @@ public class RestaurantDAO_JavaDB_Impl implements RestaurantDAO {
                 PreparedStatement ps = conn.prepareStatement(sql);){
             ps.setInt(1, id);
             
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                res.setId(id);
-                res.setName(rs.getString("restaurantname"));
-                res.setAddress(rs.getString("address"));
-                res.setWebsite(rs.getString("website"));
-                res.setLat(rs.getFloat("lat"));
-                res.setLng(rs.getFloat("lng"));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    res.setId(id);
+                    res.setName(rs.getString("restaurantname"));
+                    res.setAddress(rs.getString("address"));
+                    res.setWebsite(rs.getString("website"));
+                    res.setLat(rs.getFloat("lat"));
+                    res.setLng(rs.getFloat("lng"));
+                }
             }
-            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(RestaurantDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -119,7 +119,6 @@ public class RestaurantDAO_JavaDB_Impl implements RestaurantDAO {
                 res.setLng(rs.getFloat("lng"));
                 results.add(res);
             }
-            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(RestaurantDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
         }
