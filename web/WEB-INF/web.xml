@@ -35,6 +35,7 @@
             <web-resource-name>secure</web-resource-name>
             <description/>
             <url-pattern>/faces/userpage.xhtml</url-pattern>
+            <url-pattern>/faces/editreview.xhtml</url-pattern>
             <url-pattern>/faces/secret/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
