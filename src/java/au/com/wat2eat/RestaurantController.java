@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package au.com.wat2eat;
 
 import au.com.wat2eat.utility.RestaurantComparator;
@@ -13,19 +8,23 @@ import javax.inject.Named;
 import javax.enterprise.context.ApplicationScoped;
 import javax.naming.NamingException;
 /**
- *
+ * Controller of the main page, listing all the restaurants
  * @author garysnmb
  */
 @Named
 @ApplicationScoped
 public class RestaurantController {
     
+    /**
+     * Retrive all the restaurants in the data source
+     * @return arraylist of RestaurantDTO objects
+     */
     public ArrayList<RestaurantDTO> getRestaurants() {
         RestaurantDAO resDao;
         ArrayList<RestaurantDTO> res;
         try {
             resDao = new RestaurantDAO_JavaDB_Impl();
-            res = resDao.retreivAll();
+            res = resDao.retrieveAll();
             ReviewDAO revDao = new ReviewDAO_JavaDB_Impl();
             for (RestaurantDTO restaurant: res) {
                 restaurant.setRating(revDao.getAverageRating(restaurant.getId()));
@@ -37,13 +36,16 @@ public class RestaurantController {
         return res;
     }
     
-    
+    /**
+     * Randomly select 5 restaurants in the data source
+     * @return arraylist of RestaurantDTO objects, sort by rating
+     */
     public ArrayList<RestaurantDTO> getRandoms() {
         RestaurantDAO dao;
         ArrayList<RestaurantDTO> res = new ArrayList<>();
         try {
             dao = new RestaurantDAO_JavaDB_Impl();
-            ArrayList<RestaurantDTO> all = dao.retreivAll();
+            ArrayList<RestaurantDTO> all = dao.retrieveAll();
             ArrayList<Integer> ids = new ArrayList<>();
             int counter;
             for (counter = 0; counter < 5;) {

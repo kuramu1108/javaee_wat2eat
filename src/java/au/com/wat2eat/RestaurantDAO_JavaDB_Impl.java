@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package au.com.wat2eat;
 
 import java.sql.Connection;
@@ -18,12 +13,16 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 /**
- *
+ * RestaurantDAO JavaDB implementation
  * @author garysnmb
  */
 public class RestaurantDAO_JavaDB_Impl implements RestaurantDAO {
     DataSource ds;
     
+    /**
+     * Initialize the data source to be used
+     * @throws NamingException 
+     */
     public RestaurantDAO_JavaDB_Impl() throws NamingException {
         ds = (DataSource) InitialContext.doLookup("jdbc/aip");
     }
@@ -104,7 +103,7 @@ public class RestaurantDAO_JavaDB_Impl implements RestaurantDAO {
     }
 
     @Override
-    public ArrayList<RestaurantDTO> retreivAll() {
+    public ArrayList<RestaurantDTO> retrieveAll() {
         ArrayList<RestaurantDTO> results = new ArrayList<>();
         String sql = "select * from w.restaurant";
         try (Connection conn = ds.getConnection();

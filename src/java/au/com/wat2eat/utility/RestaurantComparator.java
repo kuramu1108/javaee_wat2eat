@@ -1,18 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package au.com.wat2eat.utility;
 
 import au.com.wat2eat.RestaurantDTO;
 import java.util.Comparator;
 /**
- *
+ * Restaurant Comparator used to compare the ranking of the restaurants
  * @author mac
  */
 public class RestaurantComparator implements Comparator<RestaurantDTO> {
 
+    /**
+     * compare function implementation
+     * if used by sort function, would sort from high to low
+     * @param o1 - restaurant 1
+     * @param o2 - restaurant 2
+     * @return intger result of comparison
+     */
     @Override
     public int compare(RestaurantDTO o1, RestaurantDTO o2) {
         if (o1.getRating() > o2.getRating())

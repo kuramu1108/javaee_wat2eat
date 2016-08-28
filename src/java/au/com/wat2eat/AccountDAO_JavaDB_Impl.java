@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package au.com.wat2eat;
 
 import java.sql.Connection;
@@ -16,12 +11,16 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 /**
- *
+ * AccountDAO implementation using JavaDB
  * @author garysnmb
  */
 public class AccountDAO_JavaDB_Impl implements AccountDAO { 
-    DataSource ds;
+    private DataSource ds;
     
+    /**
+     * Initialize the data source to be used
+     * @throws NamingException 
+     */
     public AccountDAO_JavaDB_Impl () throws NamingException {
         ds = (DataSource) InitialContext.doLookup("jdbc/aip");
     }
@@ -51,15 +50,15 @@ public class AccountDAO_JavaDB_Impl implements AccountDAO {
         try (Connection conn = ds.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);) {
             ps.setString(1, id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                result.setId(id);
-                result.setPassword(rs.getString("password"));
-                result.setGender(rs.getString("gender"));
-                result.setAge(rs.getInt("age"));
-                result.setNationality(rs.getString("nationality"));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    result.setId(id);
+                    result.setPassword(rs.getString("password"));
+                    result.setGender(rs.getString("gender"));
+                    result.setAge(rs.getInt("age"));
+                    result.setNationality(rs.getString("nationality"));
+                }
             }
-            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -106,10 +105,10 @@ public class AccountDAO_JavaDB_Impl implements AccountDAO {
         try (Connection conn = ds.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);) {
             ps.setString(1, id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next())
-                exist = true;
-            rs.close();
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next())
+                    exist = true;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO_JavaDB_Impl.class.getName()).log(Level.SEVERE, null, ex);
         }

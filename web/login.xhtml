@@ -29,7 +29,7 @@
                         <p:password id="password" value="#{accountController.account.password}" required="true"/>
                     </h:panelGrid>
                     <p:commandButton value="Login" action="#{accountController.login}" update="loginform"/>
-                    <p:messages id="loginresult" autoUpdate="true" showDetail="true" closable="true"/>
+                    <p:messages id="loginresult" autoUpdate="true" closable="true"/>
                 </h:form>
             </c:otherwise>
         </c:choose>

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package au.com.wat2eat;
 
 import java.sql.Connection;
@@ -17,12 +12,16 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 /**
- *
+ * ReviewDAO JavaDB Implementation
  * @author garysnmb
  */
 public class ReviewDAO_JavaDB_Impl implements ReviewDAO {
     private DataSource ds;
     
+    /**
+     * Initialize the data source to be used
+     * @throws NamingException 
+     */
     public ReviewDAO_JavaDB_Impl() throws NamingException {
         ds = (DataSource) InitialContext.doLookup("jdbc/aip");
     }

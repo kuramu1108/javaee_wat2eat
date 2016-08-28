@@ -30,13 +30,6 @@ create table w.restaurant (
     lng float
 );
 
--- create table w.lookup (
---     id integer not null primary key generated always as identity (start with 1, increment by 1),
---     reviewid integer not null,
---     accountid varchar(255) not null,
---     restaurantid integer not null
--- );
-
 create view jdbcrealm_user (username, password) as
 select id, password
 from w.account;
