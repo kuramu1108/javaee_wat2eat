@@ -140,6 +140,6 @@ public class DetailController implements Serializable{
         newReview.setReviewDate(java.util.Calendar.getInstance().getTime());
         
         new ReviewDAO_JavaDB_Impl().create(newReview);
-        return "userpage?faces-redirect=true";
+        return "detail?faces-redirect=true&resId=" + restaurant.getId();
     }
 }
